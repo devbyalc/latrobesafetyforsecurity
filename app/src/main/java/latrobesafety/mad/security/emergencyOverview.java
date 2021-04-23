@@ -1,4 +1,4 @@
-package latrobesafety.mad.latrobesafety;
+package latrobesafety.mad.security;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,9 +16,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -33,6 +31,7 @@ public class emergencyOverview extends AppCompatActivity {
     TextView message;
     Button startBtn;
     Button endBtn;
+    TextView status = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +44,8 @@ public class emergencyOverview extends AppCompatActivity {
         name.setText("Name       : "+ request.getName());
         message = findViewById(R.id.msg);
         message.setText(request.getMessage());
+        status = findViewById(R.id.status);
+        status.setText("Status --- " + request.getStatus().toString());
         startBtn = findViewById(R.id.start);
         endBtn = findViewById(R.id.end);
         endBtn.setBackground(ContextCompat.getDrawable(this,R.drawable.buttondisabled));
@@ -59,11 +60,10 @@ public class emergencyOverview extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateStatusOnGoing(requestRef);
+                status.setText("Status --- " + request.getStatus().toString());
                 endBtn.setBackground(ContextCompat.getDrawable(emergencyOverview.this,R.drawable.button));
                 startBtn.setBackground(ContextCompat.getDrawable(emergencyOverview.this,R.drawable.buttondisabled));
-
-
-                //cancelBtn.setEnabled(true);
+                
 
             }
         });
@@ -72,6 +72,7 @@ public class emergencyOverview extends AppCompatActivity {
             public void onClick(View view) {
 
                 updateStatusComplete(requestRef);
+                status.setText("Status --- " + request.getStatus().toString());
                 endBtn.setBackground(ContextCompat.getDrawable(emergencyOverview.this,R.drawable.buttondisabled));
                 //startBtn.setEnabled(false);
             }

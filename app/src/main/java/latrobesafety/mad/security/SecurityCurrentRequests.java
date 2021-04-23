@@ -1,4 +1,4 @@
-package latrobesafety.mad.latrobesafety;
+package latrobesafety.mad.security;
 
 
 import android.os.Bundle;
@@ -19,10 +19,11 @@ import java.util.ArrayList;
 
 public class SecurityCurrentRequests extends AppCompatActivity {
 
-    private FirebaseFirestore db;
     private static final String TAG = "SecurityCurrentRequests";
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CollectionReference requestRef  = db.collection("Request");
 
 
     @Override
@@ -30,8 +31,8 @@ public class SecurityCurrentRequests extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_security_current_requests);
 
-         db = FirebaseFirestore.getInstance();
-        CollectionReference requestRef  = db.collection("Request");
+
+       
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(false);
@@ -43,7 +44,7 @@ public class SecurityCurrentRequests extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        db.collection("Request").orderBy("priority").orderBy("currentDate").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        requestRef.orderBy("priority").orderBy("currentDate").addSnapshotListener(new EventListener<QuerySnapshot>() {
 
             @Override
             public void onEvent(QuerySnapshot documentSnapshot, FirebaseFirestoreException e) {
@@ -70,10 +71,5 @@ public class SecurityCurrentRequests extends AppCompatActivity {
             }
 
         });
-    }
-
-    protected RecyclerView getActivity()
-    {
-        return recyclerView;
     }
     }

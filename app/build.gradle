@@ -4,7 +4,7 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId "latrobesafety.mad.latrobesafety"
+        applicationId 'latrobesafety.mad.security'
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 1

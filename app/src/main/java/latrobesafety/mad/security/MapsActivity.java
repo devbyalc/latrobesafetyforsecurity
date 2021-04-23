@@ -1,4 +1,4 @@
-package latrobesafety.mad.latrobesafety;
+package latrobesafety.mad.security;
 
 import androidx.fragment.app.FragmentActivity;
 

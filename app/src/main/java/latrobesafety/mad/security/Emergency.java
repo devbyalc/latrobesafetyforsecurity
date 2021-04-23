@@ -1,6 +1,4 @@
-package latrobesafety.mad.latrobesafety;
-
-import android.location.Location;
+package latrobesafety.mad.security;
 
 import java.util.Date;
 

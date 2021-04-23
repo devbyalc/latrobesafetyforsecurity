@@ -1,4 +1,4 @@
-package latrobesafety.mad.latrobesafety;
+package latrobesafety.mad.security;
 
 
 import androidx.annotation.NonNull;
@@ -16,10 +16,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -35,6 +32,7 @@ public class PickUpOverview extends AppCompatActivity {
     private TextView building = null;
     private TextView name = null;
     private TextView message = null;
+    TextView status = null;
     private String minute;
     private String hour;
 
@@ -58,7 +56,9 @@ public class PickUpOverview extends AppCompatActivity {
         time = findViewById(R.id.time);
         time.setText("Time         : "+ request.getHour() + "." + request.getMinute());
         message = findViewById(R.id.msg);
-        message.setText(request.getMessage());
+
+        status = findViewById(R.id.status);
+        status.setText("Status --- " + request.getStatus().toString());
 
         startBtn = findViewById(R.id.start);
 
@@ -71,6 +71,7 @@ public class PickUpOverview extends AppCompatActivity {
             public void onClick(View view) {
 
                 updateStatusComplete(requestRef);
+                status.setText("Status --- " + request.getStatus().toString());
                 //cancelBtn.setEnabled(false);
                 cancelBtn.setBackground(ContextCompat.getDrawable(PickUpOverview.this,R.drawable.buttondisabled));
 
@@ -84,6 +85,7 @@ public class PickUpOverview extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 updateStatusOnGoing(requestRef);
+                status.setText("Status --- " + request.getStatus().toString());
                 //startBtn.setEnabled(false);
                 cancelBtn.setBackground(ContextCompat.getDrawable(PickUpOverview.this,R.drawable.button));
                 //cancelBtn.setEnabled(true);

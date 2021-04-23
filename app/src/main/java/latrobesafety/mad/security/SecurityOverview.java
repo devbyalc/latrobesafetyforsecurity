@@ -1,4 +1,4 @@
-package latrobesafety.mad.latrobesafety;
+package latrobesafety.mad.security;
 
 import android.content.Intent;
 import android.os.Bundle;
